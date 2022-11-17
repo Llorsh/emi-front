@@ -2,15 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginPage from './pages/LoginPage/LoginPage';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+import TokenService from './services/TokenService';
+
+/* middlewares */
+import Protected from './middlewares/Protected';
+
+import DashboardPage from './pages/DashboardPage';
+import LoginPage from './pages/LoginPage';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Router>
+    <Router>
         <Routes>
             <Route path="/" element={<LoginPage />} />
+            <Route path="dashboard" element={<Protected isLoggedIn={TokenService.isLogged }><DashboardPage title="Dashboard" /></Protected>} />
         </Routes>
     </Router>,
 );
